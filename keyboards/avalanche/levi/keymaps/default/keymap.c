@@ -9,38 +9,63 @@ qmk flash -kb avalanche/v4 -km default
 #include QMK_KEYBOARD_H
 
 enum layer {
-    LAYER_0,
-    LAYER_1,
-    LAYER_2,
+    QWERTY,
+    NAV,
+    SYMBOLS,
+    NUMBERS,
+    COLEMAK
 };
 
-#define FN_1 MO(LAYER_1)
-#define LFN_2 LT(LAYER_2, KC_GRV)
-#define RFN_2 MO(LAYER_2)
-#define LFN_3 LSFT_T(KC_EQL)
-#define RFN_3 RSFT_T(KC_MINS)
-#define EN_LALT LALT_T(KC_ENT)
-#define EN_RALT RALT_T(KC_ENT)
+enum {
+  TD_NAV = 0,
+  TD_SYMBOLS,
+  TD_NUMBERS,
+  TD_COLEMAK,
+  TD_QWERTY
+};
+
+tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [TD_NAV]  = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_ENT, NUMBERS),
+  [TD_SYMBOLS]  = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_TAB, SYMBOLS),
+  [TD_NUMBERS]  = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_SPC, NUMBERS),
+  [TD_COLEMAK] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_GRV, COLEMAK),
+  [TD_QWERTY] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_GRV, QWERTY)
+// Other declarations would go here, separated by commas, if you have them
+};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [LAYER_0] = LAYOUT(
-                 KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
-        KC_CAPS, KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_RBRC,
-                 KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_DEL,  KC_LGUI, KC_INS,  KC_BSPC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RCTL,
-                                            KC_MUTE, LFN_2,   LFN_3,   KC_SPC,  EN_LALT, EN_RALT, FN_1,    RFN_3,   RFN_2,   KC_PSCR
-    ),
-    [LAYER_1] = LAYOUT(
-                 _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,                                     KC_DEL,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, XXXXXXX,
-        _______, _______, KC_APP,  XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,                                      KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, XXXXXXX, KC_F12,
-                 _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, _______,
-                                            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
-    [LAYER_2] = LAYOUT(
-                 _______, KC_0,    KC_1,    KC_2,    KC_3,    KC_BSPC,                                     KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, XXXXXXX, KC_LPRN,
-        _______, _______, KC_0,    KC_4,    KC_5,    KC_6,    KC_DEL,                                      KC_BSPC, KC_DLR,  KC_PERC, KC_CIRC, XXXXXXX, XXXXXXX, KC_RPRN,
-                 _______, KC_0,    KC_7,    KC_8,    KC_9,    KC_DOT,  _______, _______, _______, _______, XXXXXXX, KC_AMPR, KC_ASTR, XXXXXXX, XXXXXXX, _______,
-                                            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
+[QWERTY] = LAYOUT(
+        TD(TD_COLEMAK), KC_Q, KC_W, KC_E, KC_R, KC_T,		                                  KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC,
+KC_ESC, KC_LALT, KC_A, KC_S, KC_D, KC_F, KC_G,		                                  KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_EQL,
+        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_DEL, KC_LGUI,		 KC_INS, KC_HOME, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
+                     KC_LBRC, KC_LPRN, KC_LCTL, LT(SYMBOLS, KC_TAB), LT(NUMBERS, KC_SPC),		 KC_BSPC, LT(NUMBERS, KC_ENT), KC_NO, KC_RPRN, KC_RBRC
+),
+[NAV] = LAYOUT(
+       KC_NO, KC_AGIN, KC_PSTE, KC_COPY, KC_CUT, KC_UNDO,		                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+TO(QWERTY), KC_NO, KC_CAPS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,		                       KC_LCTL, KC_LALT, KC_DEL, KC_NO, KC_NO, KC_NO, TO(COLEMAK),
+       KC_NO, KC_INS, KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_NO, KC_NO,		 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,		 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+[SYMBOLS] = LAYOUT(
+KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,		                    KC_LCBR, LSFT(KC_7), LSFT(KC_8), LSFT(KC_0), KC_RCBR, KC_NO,
+TO(QWERTY), KC_NO, KC_NO, KC_LGUI, KC_LALT, KC_LCTL, KC_DEL,		        LSFT(KC_SCLN), LSFT(KC_4), LSFT(KC_5), LSFT(KC_6), LSFT(KC_EQL), KC_NO, TO(COLEMAK),
+KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,		 KC_NO, KC_NO, LSFT(KC_GRV), LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_BSLS), KC_NO,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,		 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+[NUMBERS] = LAYOUT(
+KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,		                    KC_LBRC, KC_7, KC_8, KC_9, KC_RBRC, KC_NO,
+TO(QWERTY), KC_NO, KC_NO, KC_LGUI, KC_LCTL, KC_LALT, KC_DEL,		        KC_SCLN, KC_4, KC_5, KC_6, KC_EQL, KC_NO, TO(COLEMAK),
+KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,		 KC_NO, KC_NO, KC_GRV, KC_1, KC_2, KC_3, KC_BSLS, KC_NO,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,		 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+[COLEMAK] = LAYOUT(
+TD(TD_COLEMAK), KC_Q, KC_W, KC_F, KC_P, KC_B,		                        KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LBRC,
+KC_ESC, KC_LALT, KC_A, KC_R, KC_S, KC_T, KC_G,		                    KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_EQL,
+KC_LSFT, KC_Z, KC_X, KC_C, KC_D, KC_V, KC_DEL, KC_LGUI,		 KC_INS, KC_HOME, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,		 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
 };
 
 
