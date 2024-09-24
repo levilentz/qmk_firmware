@@ -10,10 +10,10 @@ qmk flash -kb avalanche/v4 -km default
 
 enum layer {
     QWERTY,
+    COLEMAK,
     NAV,
     SYMBOLS,
-    NUMBERS,
-    COLEMAK
+    NUMBERS
 };
 
 enum {
@@ -42,6 +42,12 @@ KC_ESC, KC_LALT, KC_A, KC_S, KC_D, KC_F, KC_G,		                                
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_DEL, KC_LGUI,		 KC_INS, KC_HOME, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
                      KC_LBRC, KC_LPRN, KC_LCTL, LT(SYMBOLS, KC_TAB), LT(NUMBERS, KC_SPC),		 KC_BSPC, LT(NAV, KC_ENT), KC_TILD, KC_RPRN, KC_RBRC
 ),
+[COLEMAK] = LAYOUT(
+TD(TD_COLEMAK), KC_Q, KC_W, KC_F, KC_P, KC_B,		                        KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_MINS,
+KC_ESC, KC_LALT, KC_A, KC_R, KC_S, KC_T, KC_G,		                    KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_EQL,
+KC_LSFT, KC_Z, KC_X, KC_C, KC_D, KC_V, KC_DEL, KC_LGUI,		 KC_INS, KC_HOME, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
+KC_LBRC, KC_LPRN, KC_LCTL, LT(SYMBOLS, KC_TAB), LT(NUMBERS, KC_SPC),		 KC_BSPC, LT(NAV, KC_ENT), KC_TILD, KC_RPRN, KC_RBRC
+),
 [NAV] = LAYOUT(
        KC_NO, KC_AGIN, KC_PSTE, KC_COPY, KC_CUT, KC_UNDO,		                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 TO(QWERTY), KC_NO, KC_CAPS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,		                       KC_LCTL, KC_LALT, KC_DEL, KC_NO, KC_NO, KC_NO, TO(COLEMAK),
@@ -59,12 +65,6 @@ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,		                    KC_LBRC, KC_7, KC
 TO(QWERTY), KC_NO, KC_NO, KC_LGUI, KC_LCTL, KC_LALT, KC_DEL,		        KC_SCLN, KC_4, KC_5, KC_6, KC_EQL, KC_NO, TO(COLEMAK),
 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,		 KC_NO, KC_NO, KC_GRV, KC_1, KC_2, KC_3, KC_BSLS, KC_NO,
 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,		 KC_MINS, KC_0, KC_DOT, KC_NO, KC_NO
-),
-[COLEMAK] = LAYOUT(
-TD(TD_COLEMAK), KC_Q, KC_W, KC_F, KC_P, KC_B,		                        KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_MINS,
-KC_ESC, KC_LALT, KC_A, KC_R, KC_S, KC_T, KC_G,		                    KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_EQL,
-KC_LSFT, KC_Z, KC_X, KC_C, KC_D, KC_V, KC_DEL, KC_LGUI,		 KC_INS, KC_HOME, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
-KC_LBRC, KC_LPRN, KC_LCTL, LT(SYMBOLS, KC_TAB), LT(NUMBERS, KC_SPC),		 KC_BSPC, LT(NAV, KC_ENT), KC_TILD, KC_RPRN, KC_RBRC
 ),
 };
 
