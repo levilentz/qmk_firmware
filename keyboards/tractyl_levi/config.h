@@ -1,5 +1,6 @@
 //Pointing Device config
-#define TAPPING_TERM 150
+#define TAPPING_TERM 200
+//#define QUICK_TAP_TERM 0
 #define ROTATIONAL_TRANSFORM_ANGLE  -25
 #define POINTING_DEVICE_INVERT_Y
 #define PMW33XX_CS_PIN GP21
