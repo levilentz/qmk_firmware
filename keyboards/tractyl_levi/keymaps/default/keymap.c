@@ -80,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TD_QWERTY),    KC_W,    KC_F,    KC_P,    KC_B,                               KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT,
         HOME_A, HOME_R, HOME_S, HOME_T,    KC_G,                               KC_M,    HOME_N, HOME_E, HOME_I, HOME_O,
         KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                               KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
-                                     TD(TD_CTRL), LT(SYMBOLS, KC_TAB), LT(NUMBERS, KC_SPC),          KC_BSPC, LT(NAV, KC_ENT), KC_SCLN, KC_EQL,                 
-                                     KC_LSFT, KC_BTN2, KC_BTN1
+                                     KC_ESC, LT(SYMBOLS, KC_TAB), LT(NUMBERS, KC_SPC),          KC_BSPC, LT(NAV, KC_ENT), KC_MINS, KC_EQL,                 
+                                     KC_ENT, KC_BTN2, KC_BTN1
     ),
     [QWERTY] = LAYOUT_split(
         TD(TD_COLEMAK),    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
