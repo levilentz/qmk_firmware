@@ -8,9 +8,21 @@ qmk flash -kb avalanche/v4 -km default
 
 #include QMK_KEYBOARD_H
 
+// Left-hand home row mods, colemak
+#define HOME_A LGUI_T(KC_A)
+#define HOME_R LALT_T(KC_R)
+#define HOME_S LCTL_T(KC_S)
+#define HOME_T LSFT_T(KC_T)
+
+// Right-hand home row mods, colemak
+#define HOME_N RSFT_T(KC_N)
+#define HOME_E RCTL_T(KC_E)
+#define HOME_I LALT_T(KC_I)
+#define HOME_O RGUI_T(KC_O)
+
 enum layer {
-    QWERTY,
     COLEMAK,
+    QWERTY,
     NAV,
     SYMBOLS,
     NUMBERS
@@ -36,17 +48,17 @@ tap_dance_action_t tap_dance_actions[] = {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+[COLEMAK] = LAYOUT(
+TD(TD_COLEMAK), KC_Q, KC_W, KC_F, KC_P, KC_B,		                        KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_MINS,
+KC_ESC, KC_LALT, HOME_A, HOME_R, HOME_S, HOME_T,    KC_G,               KC_M,    HOME_N, HOME_E, HOME_I, HOME_O, KC_QUOT, KC_EQL,
+KC_LSFT, KC_Z, KC_X, KC_C, KC_D, KC_V, KC_DEL, KC_LGUI,		 KC_INS, KC_HOME, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
+KC_LBRC, KC_LPRN, KC_LCTL, LT(SYMBOLS, KC_TAB), LT(NUMBERS, KC_SPC),		 KC_BSPC, LT(NAV, KC_ENT), KC_TILD, KC_RPRN, KC_RBRC
+),
 [QWERTY] = LAYOUT(
         TD(TD_COLEMAK), KC_Q, KC_W, KC_E, KC_R, KC_T,		                                  KC_Y, KC_U, KC_I, KC_O, KC_P, KC_MINS,
 KC_ESC, KC_LALT, KC_A, KC_S, KC_D, KC_F, KC_G,		                                  KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_EQL,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_DEL, KC_LGUI,		 KC_INS, KC_HOME, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
                      KC_LBRC, KC_LPRN, KC_LCTL, LT(SYMBOLS, KC_TAB), LT(NUMBERS, KC_SPC),		 KC_BSPC, LT(NAV, KC_ENT), KC_TILD, KC_RPRN, KC_RBRC
-),
-[COLEMAK] = LAYOUT(
-TD(TD_COLEMAK), KC_Q, KC_W, KC_F, KC_P, KC_B,		                        KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_MINS,
-KC_ESC, KC_LALT, KC_A, KC_R, KC_S, KC_T, KC_G,		                    KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_EQL,
-KC_LSFT, KC_Z, KC_X, KC_C, KC_D, KC_V, KC_DEL, KC_LGUI,		 KC_INS, KC_HOME, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
-KC_LBRC, KC_LPRN, KC_LCTL, LT(SYMBOLS, KC_TAB), LT(NUMBERS, KC_SPC),		 KC_BSPC, LT(NAV, KC_ENT), KC_TILD, KC_RPRN, KC_RBRC
 ),
 [NAV] = LAYOUT(
        KC_NO, KC_AGIN, KC_PSTE, KC_COPY, KC_CUT, KC_UNDO,		                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
